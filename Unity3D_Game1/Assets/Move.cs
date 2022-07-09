@@ -4,25 +4,26 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
+    [SerializeField] private Animator anim;
     public Transform groundChecker; 
-    public LayerMask groundMask; //Ground ·¹ÀÌ¾î¸¶½ºÅ©
+    public LayerMask groundMask; //Ground ï¿½ï¿½ï¿½Ì¾î¸¶ï¿½ï¿½Å©
 
-    public float moveSpeed = 5f; //¿òÁ÷ÀÌ´Â ¼Óµµ
-    public float jumpHeight = 7f;//Á¡ÇÁ ³ôÀÌ
+    public float moveSpeed = 5f; //ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Óµï¿½
+    public float jumpHeight = 7f;//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public float groundRadius = 0.5f;//
 
     [Range(1.0f, 3.0f)]
-    public float gravityScale = 1f;//Áß·Â 1~3¹è
+    public float gravityScale = 1f;//ï¿½ß·ï¿½ 1~3ï¿½ï¿½
 
     Vector3 velocity;
-    float gravity => -9.8f * gravityScale;//½ÇÁ¦ Áß·Â°ª Àû¿ë
-    bool isGrounded;//¶¥¿¡ ´ê¾Ò´Â°¡
+    float gravity => -9.8f * gravityScale;//ëŒë‹¤ì‹
+    bool isGrounded;//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò´Â°ï¿½
 
-    CharacterController controller; //Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯
+    CharacterController controller; //Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;//Ä¿¼­ È­¸é ¾È¿¡ ÀÖ°ÔÇÏ±â
-        controller = GetComponent<CharacterController>(); //Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯ ÄÄÆ÷³ÍÆ® ¹Ş¾Æ¿À±â  
+        Cursor.lockState = CursorLockMode.Locked;//Ä¿ï¿½ï¿½ È­ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½Ö°ï¿½ï¿½Ï±ï¿½
+        controller = GetComponent<CharacterController>(); //Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ş¾Æ¿ï¿½ï¿½ï¿½  
     }
 
     // Update is called once per frame
@@ -35,25 +36,28 @@ public class Move : MonoBehaviour
         Gravity();
 
     }
-    void CheckGround()//¶¥¿¡ ´ê¾ÆÀÖ´Â°¡ (Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯ isGrounded°¡ ÆÇÁ¤ÀÌ ±¸·Á¼­ ¸¸µë)
+    void CheckGround()//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´Â°ï¿½ (Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ isGroundedï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     {
-        isGrounded = Physics.CheckSphere(groundChecker.position, groundRadius, groundMask);//±×¶ó¿î´õÃ¼Å© À§Ä¡°¡ ±¸¸ğ¾ç ¾È¿¡ÀÖ°í ±×¶ó¿îµå¸¶½ºÅ©ÀÌ¸é isGrounded true
+        isGrounded = Physics.CheckSphere(groundChecker.position, groundRadius, groundMask);//ï¿½×¶ï¿½ï¿½ï¿½Ã¼Å© ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ï¿½Ö°ï¿½ ï¿½×¶ï¿½ï¿½å¸¶ï¿½ï¿½Å©ï¿½Ì¸ï¿½ isGrounded true
     }
     void Movement()
     {
 
-        float inputX = Input.GetAxis("Horizontal");//Å°º¸µå ÁÂ ¿ì
-        float inputZ = Input.GetAxis("Vertical");//Å°º¸µå »ó ÇÏ
+        float inputX = Input.GetAxis("Horizontal");//Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
+        float inputZ = Input.GetAxis("Vertical");//Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½
 
-        Vector3 direction = (transform.right * inputX) + (transform.forward * inputZ);//¾Õ ¿· º¸´Â ±âÁØÀ¸·Î ´õÇØÁÖ±â
-        
-        controller.Move(direction * moveSpeed * Time.deltaTime); //Ä³¸¯ÅÍ ÄÁÆ®·Ñ·¯·Î ¿òÁ÷ÀÌ±â
+        Vector3 direction = (transform.right * inputX) + (transform.forward * inputZ);//ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
+
+        Vector3 vec = new Vector3(inputX, 0, inputZ);
+        anim.SetBool("Walk", vec.magnitude > 0);    
+
+        controller.Move(direction * moveSpeed * Time.deltaTime); //Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½Ñ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½
     }
     void Jump()
     {
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);//½ºÆäÀÌ½º¸¦ ´©¸£¸é velocity y Á¶Á¤
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);//ì›€ì§ì„ ìì—°ìŠ¤ëŸ½ê²Œ í•˜ê¸°ìœ„í•´ sqrtì‚¬ìš© 
         }
     }
     void Gravity()
@@ -62,7 +66,7 @@ public class Move : MonoBehaviour
         {
             velocity.y = -2f;
         }
-        velocity.y += gravity * Time.deltaTime;//velocity y¸¦ Áß·Â°ª¸¸Å­ ´õÇÏ±â
-        controller.Move(velocity * Time.deltaTime);//velocity¸¸Å­ ¿òÁ÷ÀÌ±â
+        velocity.y += gravity * Time.deltaTime;//velocity yï¿½ï¿½ ï¿½ß·Â°ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½Ï±ï¿½
+        controller.Move(velocity * Time.deltaTime);//velocityï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½Ì±ï¿½
     }
 }

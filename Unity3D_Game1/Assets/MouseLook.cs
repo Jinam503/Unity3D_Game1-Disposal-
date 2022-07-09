@@ -15,19 +15,19 @@ public class MouseLook : MonoBehaviour
     void Update()
     {
 
-        float mouseX = Input.GetAxis("Mouse X");//¸¶¿ì½º xÁÂÇ¥
-        float mouseY = Input.GetAxis("Mouse Y");//¸¶¿ì½º yÁÂÇ¥
+        float mouseX = Input.GetAxis("Mouse X");//ï¿½ï¿½ï¿½ì½º xï¿½ï¿½Ç¥
+        float mouseY = Input.GetAxis("Mouse Y");//ï¿½ï¿½ï¿½ì½º yï¿½ï¿½Ç¥
 
         OnMouseLook(new Vector2(mouseX, mouseY));
     }
-    void OnMouseLook(Vector2 vec)//vec2 ¹æÇâ ¹Ù¶óº¸±â
+    void OnMouseLook(Vector2 vec)//vec2 ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¶óº¸±ï¿½
     {
-        playerBody.Rotate(Vector2.up * vec.x);//»óÇÏ
+        playerBody.Rotate(Vector2.up * vec.x);//ï¿½ï¿½ï¿½ï¿½
 
-        xRotation -= vec.y;//ÁÂ¿ì
+        xRotation -= vec.y;//ï¿½Â¿ï¿½
 
-        xRotation = Mathf.Clamp(xRotation, -60f, 60f);//60 -60 ¾È¿¡¼­¸¸
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);//ÄõÅÍ´Ï¾ðÀ¸·Î È¸Àü
+        xRotation = Mathf.Clamp(xRotation, 30f, 150f);//60 -60 ï¿½È¿ï¿½ï¿½ï¿½ï¿½ï¿½
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);//ï¿½ï¿½ï¿½Í´Ï¾ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
 
     }
 }
