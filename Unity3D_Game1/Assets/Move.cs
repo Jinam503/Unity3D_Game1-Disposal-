@@ -12,6 +12,8 @@ public class Move : MonoBehaviour
     public float jumpHeight = 7f;//���� ����
     public float groundRadius = 0.5f;//
 
+    private float runSpeed = 0f;
+
     [Range(1.0f, 3.0f)]
     public float gravityScale = 1f;//�߷� 1~3��
 
@@ -49,9 +51,21 @@ public class Move : MonoBehaviour
         Vector3 direction = (transform.right * inputX) + (transform.forward * inputZ);//�� �� ���� �������� �����ֱ�
 
         Vector3 vec = new Vector3(inputX, 0, inputZ);
-        anim.SetBool("Walk", vec.magnitude > 0);    
+        anim.SetBool("IsWalk", vec.magnitude > 0);
 
-        controller.Move(direction * moveSpeed * Time.deltaTime); //ĳ���� ��Ʈ�ѷ��� �����̱�
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            runSpeed = 2f;
+            anim.SetBool("IsRun", true);
+        }
+        else
+        {
+            runSpeed = 1f;
+            anim.SetBool("IsRun", false);
+        }
+        anim.SetBool("Aim", Input.GetMouseButton(0));
+
+        controller.Move(direction * runSpeed * moveSpeed * Time.deltaTime); //ĳ���� ��Ʈ�ѷ��� �����̱�
     }
     void Jump()
     {
