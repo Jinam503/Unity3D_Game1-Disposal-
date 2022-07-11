@@ -52,7 +52,6 @@ public class Move : MonoBehaviour
 
         Vector3 vec = new Vector3(inputX, 0, inputZ);
         anim.SetBool("IsWalk", vec.magnitude > 0);
-
         if (Input.GetKey(KeyCode.LeftShift))
         {
             runSpeed = 2f;
@@ -62,9 +61,9 @@ public class Move : MonoBehaviour
         {
             runSpeed = 1f;
             anim.SetBool("IsRun", false);
+            
         }
-        anim.SetBool("Aim", Input.GetMouseButton(0));
-
+        anim.SetBool("Aim", Input.GetMouseButton(1));
         controller.Move(direction * runSpeed * moveSpeed * Time.deltaTime); //ĳ���� ��Ʈ�ѷ��� �����̱�
     }
     void Jump()
@@ -84,3 +83,5 @@ public class Move : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);//velocity��ŭ �����̱�
     }
 }
+
+
