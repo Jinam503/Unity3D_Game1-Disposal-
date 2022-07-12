@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public Transform groundChecker; 
     public LayerMask groundMask;
     public Weapon weapon;
+    public Transform weaponTransform;
 
     public float moveSpeed = 5f; //�����̴� �ӵ�
     public float jumpHeight = 7f;//���� ����
@@ -26,7 +27,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        controller = GetComponent<CharacterController>(); //ĳ���� ��Ʈ�ѷ� ������Ʈ �޾ƿ���  
+        controller = GetComponent<CharacterController>();
+        weaponTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
@@ -58,7 +60,7 @@ public class Player : MonoBehaviour
         float inputX = Input.GetAxis("Horizontal");
         float inputZ = Input.GetAxis("Vertical");
 
-        Vector3 direction = (transform.right * inputX) + (transform.forward * inputZ);//�� �� ���� �������� �����ֱ�
+        Vector3 direction = (transform.right * inputX) + (transform.forward * inputZ);
 
         Vector3 vec = new Vector3(inputX, 0, inputZ);
         anim.SetBool("IsWalk", vec.magnitude > 0);
