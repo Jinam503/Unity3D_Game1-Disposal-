@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Move : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private Animator anim;
     public Transform groundChecker; 
-    public LayerMask groundMask; //Ground ���̾��ũ
+    public LayerMask groundMask;
+    public Weapon weapon;
 
     public float moveSpeed = 5f; //�����̴� �ӵ�
     public float jumpHeight = 7f;//���� ����
@@ -15,16 +16,16 @@ public class Move : MonoBehaviour
     private float runSpeed = 0f;
 
     [Range(1.0f, 3.0f)]
-    public float gravityScale = 1f;//�߷� 1~3��
+    public float gravityScale = 1f;
 
     Vector3 velocity;
     float gravity => -9.8f * gravityScale;//람다식
-    bool isGrounded;//���� ��Ҵ°�
+    bool isGrounded;
 
-    CharacterController controller; //ĳ���� ��Ʈ�ѷ�
+    CharacterController controller;
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;//Ŀ�� ȭ�� �ȿ� �ְ��ϱ�
+        Cursor.lockState = CursorLockMode.Locked;
         controller = GetComponent<CharacterController>(); //ĳ���� ��Ʈ�ѷ� ������Ʈ �޾ƿ���  
     }
 
@@ -36,17 +37,26 @@ public class Move : MonoBehaviour
         Movement();
         Jump();
         Gravity();
+        Attack();
 
     }
-    void CheckGround()//���� ����ִ°� (ĳ���� ��Ʈ�ѷ� isGrounded�� ������ ������ ����)
+    void Attack()
+    {
+        if(Input.GetMouseButton(0))
+        {
+            weapon.Use();
+        }
+        
+    }
+    void CheckGround()
     {
         isGrounded = Physics.CheckSphere(groundChecker.position, groundRadius, groundMask);//�׶���üũ ��ġ�� ����� �ȿ��ְ� �׶��帶��ũ�̸� isGrounded true
     }
     void Movement()
     {
 
-        float inputX = Input.GetAxis("Horizontal");//Ű���� �� ��
-        float inputZ = Input.GetAxis("Vertical");//Ű���� �� ��
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
 
         Vector3 direction = (transform.right * inputX) + (transform.forward * inputZ);//�� �� ���� �������� �����ֱ�
 
