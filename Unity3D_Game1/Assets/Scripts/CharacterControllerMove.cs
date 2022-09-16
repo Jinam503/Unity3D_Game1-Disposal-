@@ -10,8 +10,9 @@ public class CharacterControllerMove : MonoBehaviour
 
     [SerializeField] private float jumpForce;
     [SerializeField] private float gravity;
+    public float defaultGravity = 20f;
 
-    private CharacterController characterController;
+    public CharacterController characterController;
 
     public float MoveSpeed
     {
@@ -26,6 +27,7 @@ public class CharacterControllerMove : MonoBehaviour
     void Update()
     {
         if (!characterController.isGrounded) moveForce.y += gravity * Time.deltaTime * -1;
+        else gravity = defaultGravity;
         characterController.Move(moveForce * Time.deltaTime);
     }
     public void MoveTo(Vector3 dir)
@@ -37,4 +39,18 @@ public class CharacterControllerMove : MonoBehaviour
     {
         if (characterController.isGrounded) moveForce.y = jumpForce;
     }
+    public void FallAfterJump()
+    {
+        RaycastHit hit;
+        if (!characterController.isGrounded && PlayerData.Instance.PlayerSkill[0])
+        {
+            if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 100f))
+            {
+                Debug.Log(hit.transform.name);
+            }
+            gravity *= 10;
+        }
+    }
+
+
 }

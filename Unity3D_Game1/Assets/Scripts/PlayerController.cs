@@ -6,8 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Input KeyCodes")]
     [SerializeField] private KeyCode keyCodeRun = KeyCode.LeftShift;
-    [Header("Input KeyCodes")]
     [SerializeField] private KeyCode keyCodeJump = KeyCode.Space;
+    [SerializeField] private KeyCode keyCodeQSkill = KeyCode.Q;
+    [SerializeField] private KeyCode keyCodeESkill = KeyCode.E;
 
     private PlayerRotate playerRotate;
     private CharacterControllerMove movement;
@@ -28,6 +29,11 @@ public class PlayerController : MonoBehaviour
         UpdateRotate();
         UpdateMove();
         UpdateJump();
+        UseSkill();
+    }
+    private void UseSkill()
+    {
+        if (Input.GetKeyDown(keyCodeQSkill)) movement.FallAfterJump();
     }
     private void UpdateMove()
     {
