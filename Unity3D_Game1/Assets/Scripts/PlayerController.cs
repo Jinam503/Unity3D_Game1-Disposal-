@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private PlayerRotate playerRotate;
     private CharacterControllerMove movement;
     private Status status;
-
+    private bool isSkill = false;
 
     private void Awake()
     {
@@ -26,14 +26,18 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        UpdateRotate();
-        UpdateMove();
-        UpdateJump();
+        if(!isSkill)
+        {
+            UpdateRotate();
+            UpdateMove();
+            UpdateJump();
+        }
         UseSkill();
     }
     private void UseSkill()
     {
-        if (Input.GetKeyDown(keyCodeQSkill)) movement.FallAfterJump();
+        //isSkill = true;
+        if (Input.GetKey(keyCodeQSkill)) movement.FallAfterJump();
     }
     private void UpdateMove()
     {

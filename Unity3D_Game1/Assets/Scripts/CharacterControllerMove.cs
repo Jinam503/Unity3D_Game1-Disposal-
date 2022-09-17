@@ -44,11 +44,16 @@ public class CharacterControllerMove : MonoBehaviour
         RaycastHit hit;
         if (!characterController.isGrounded && PlayerData.Instance.PlayerSkill[0])
         {
-            if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 100f))
+            if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 1000f))
             {
-                Debug.Log(hit.transform.name);
+                if (hit.collider.tag == "Wall")
+                {
+                    MoveTo(new Vector3(hit.point.x , hit.point.y, hit.point.z * -1));
+                    Debug.Log(hit.point);
+                    Debug.DrawRay(gameObject.transform.position, gameObject.transform.forward * hit.distance, Color.red);
+                }
             }
-            gravity *= 10;
+            //gravity *= 10;
         }
     }
 
