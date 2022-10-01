@@ -26,18 +26,24 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        if(!isSkill)
+        if (!isSkill)
         {
-            UpdateRotate();
             UpdateMove();
             UpdateJump();
         }
+        UpdateRotate();
         UseSkill();
+        
+        
+        
     }
     private void UseSkill()
     {
-        //isSkill = true;
-        if (Input.GetKey(keyCodeQSkill)) movement.FallAfterJump();
+        if (Input.GetKey(keyCodeQSkill))
+        {
+            isSkill = movement.h();
+        }
+            
     }
     private void UpdateMove()
     {
