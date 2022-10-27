@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode keyCodeJump = KeyCode.Space;
     [SerializeField] private KeyCode keyCodeQSkill = KeyCode.Q;
     [SerializeField] private KeyCode keyCodeESkill = KeyCode.E;
+    [SerializeField] private BoxCollider climbArea;
 
     private PlayerRotate playerRotate;
     private CharacterControllerMove movement;
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
             UpdateJump();
         }
         UpdateRotate();
-        UseSkill();
+        UseSkill(); 
         
         
         
@@ -41,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(keyCodeQSkill))
         {
-            isSkill = movement.h();
+            isSkill = movement.Q();
         }
             
     }
@@ -70,6 +71,13 @@ public class PlayerController : MonoBehaviour
     }
     private void UpdateJump()
     {
-        if (Input.GetKeyDown(keyCodeJump)) movement.Jump();
+        if (Input.GetKeyDown(keyCodeJump))
+        {
+            movement.Jump();
+        }
+        if (Input.GetKey(keyCodeJump))
+        {
+            movement.Climb();
+        }
     }
 }

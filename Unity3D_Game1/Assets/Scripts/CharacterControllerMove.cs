@@ -9,10 +9,14 @@ public class CharacterControllerMove : MonoBehaviour
     private Vector3 moveForce;
 
     [SerializeField] private float jumpForce;
+    [SerializeField] private float climbForce;
     [SerializeField] private float gravity;
     public float defaultGravity = 20f;
 
     public CharacterController characterController;
+    private RaycastHit hit;
+    private bool canClimb;
+    private int canJumpCount = 0;
 
     public float MoveSpeed
     {
@@ -27,8 +31,21 @@ public class CharacterControllerMove : MonoBehaviour
     void Update()
     {
         if (!characterController.isGrounded) moveForce.y += gravity * Time.deltaTime * -1;
-        else gravity = defaultGravity;
+        else
+        {
+            gravity = defaultGravity;
+            canJumpCount = 0;
+        }
+
         characterController.Move(moveForce * Time.deltaTime);
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
+        {
+            canClimb = false;
+            if (hit.transform.tag == "Wall")
+            {
+                canClimb = true;
+            }
+        }
     }
     public void MoveTo(Vector3 dir)
     {
@@ -37,25 +54,29 @@ public class CharacterControllerMove : MonoBehaviour
     }
     public void Jump()
     {
-        if (characterController.isGrounded) moveForce.y = jumpForce;
-    }
-    public bool h()
-    {
-        RaycastHit hit;
-        if (!characterController.isGrounded && PlayerData.Instance.PlayerSkill[0])
+        if (characterController.isGrounded)
         {
-            if (Physics.Raycast(gameObject.transform.position, gameObject.transform.forward, out hit, 1000f))
-            {
-                if (hit.collider.tag == "Wall")
-                {
-                    return false;
-                    Debug.Log(hit.point);
-                    Debug.DrawRay(gameObject.transform.position, gameObject.transform.forward * hit.distance, Color.red);
-                }
-            }
+            moveForce.y = jumpForce;
+            canJumpCount++;
         }
+        else if (canJumpCount == 0)
+        {
+            moveForce.y = jumpForce;
+            canJumpCount++;
+        }
+    }
+    public bool Q()
+    {
         return true;
     }
+    public void Climb()
+    {
+        if (canClimb)
+        {
+            gravity = 0f;
+            moveForce.y = climbForce;
 
-
+        }
+        else gravity = defaultGravity;
+    }
 }
