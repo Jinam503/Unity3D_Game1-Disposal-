@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private CharacterControllerMove movement;
     private Status status;
     private bool isSkill = false;
+    [SerializeField]  private Animator anim;
 
     private void Awake()
     {
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
         playerRotate = GetComponent<PlayerRotate>();
         movement = GetComponent<CharacterControllerMove>();
         status = GetComponent<Status>();
+
+        movement.MoveSpeed = status.WalkSpeed;
     }
     private void Update()
     {
@@ -48,19 +51,12 @@ public class PlayerController : MonoBehaviour
     }
     private void UpdateMove()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-        
-        if( x != 0 || z != 0)
-        {
-            bool isRun = false;
-
-            if (z > 0) isRun = Input.GetKey(keyCodeRun);
-
-            movement.MoveSpeed = isRun == true ? status.RunSpeed : status.WalkSpeed;
-        }
-
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
         movement.MoveTo(new Vector3(x, 0, z));
+        
+        anim.SetFloat("Ver", z);
+        anim.SetFloat("Hor", x);
     }
     private void UpdateRotate()
     {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -232,10 +232,9 @@ GameObject:
   - component: {fileID: 180507194}
   - component: {fileID: 180507193}
   - component: {fileID: 180507192}
-  - component: {fileID: 180507191}
   - component: {fileID: 180507190}
-  - component: {fileID: 180507189}
   - component: {fileID: 180507188}
+  - component: {fileID: 180507196}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -339,19 +338,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &180507189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180507187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17910123669cc714fa4caa926d84e40c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioTakeOutWeapon: {fileID: 8300000, guid: 2ae41e984ff1f3e4a840a1a46b6a8816, type: 3}
 --- !u!114 &180507190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,22 +350,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329f088c4beb5b8428272e237d333151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
+  walkSpeed: 40
   runSpeed: 8
---- !u!114 &180507191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 180507187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f05cd699a2cc5f54da61ba73a15effb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotateCamXSpeed: 1
-  rotateCamYSpeed: 1
 --- !u!114 &180507192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +369,7 @@ MonoBehaviour:
   keyCodeQSkill: 113
   keyCodeESkill: 101
   climbArea: {fileID: 0}
+  anim: {fileID: 1833485055}
 --- !u!114 &180507193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -409,7 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4826e1892a8002d4ba7b8fa61f639513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  moveSpeed: 5
   jumpForce: 10
   climbForce: 4
   gravity: 20
@@ -450,6 +423,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &180507196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180507187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05cd699a2cc5f54da61ba73a15effb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateCamXSpeed: 1
+  rotateCamYSpeed: 1
 --- !u!1 &375868071
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +884,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1136994913350202544, guid: 917e00053cb499241a1d42e2b2716532, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.857
       objectReference: {fileID: 0}
     - target: {fileID: 1136994913350202544, guid: 917e00053cb499241a1d42e2b2716532, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1060,6 +1047,11 @@ Camera:
 --- !u!4 &1833485054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1136994913350202544, guid: 917e00053cb499241a1d42e2b2716532, type: 3}
+  m_PrefabInstance: {fileID: 1639809395}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1833485055 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7033455320432561726, guid: 917e00053cb499241a1d42e2b2716532, type: 3}
   m_PrefabInstance: {fileID: 1639809395}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2105260401

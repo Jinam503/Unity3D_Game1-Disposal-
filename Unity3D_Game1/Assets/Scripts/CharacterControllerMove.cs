@@ -15,7 +15,7 @@ public class CharacterControllerMove : MonoBehaviour
 
     public CharacterController characterController;
     private RaycastHit hit;
-    private bool canClimb;
+    private bool canClimb = false;
     private int canJumpCount = 0;
 
     public float MoveSpeed
@@ -36,16 +36,20 @@ public class CharacterControllerMove : MonoBehaviour
             gravity = defaultGravity;
             canJumpCount = 0;
         }
-
         characterController.Move(moveForce * Time.deltaTime);
         if (Physics.Raycast(transform.position, transform.forward, out hit, 1))
         {
-            canClimb = false;
             if (hit.transform.tag == "Wall")
             {
                 canClimb = true;
+                StartCoroutine(a());
             }
         }
+    }
+    IEnumerator a()
+    {
+        yield return new WaitForSeconds(0.1f);
+        canClimb = false;
     }
     public void MoveTo(Vector3 dir)
     {
