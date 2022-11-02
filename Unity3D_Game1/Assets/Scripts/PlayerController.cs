@@ -55,8 +55,6 @@ public class PlayerController : MonoBehaviour
         float z = Input.GetAxis("Vertical");
         movement.MoveTo(new Vector3(x, 0, z));
         
-        anim.SetFloat("Ver", z);
-        anim.SetFloat("Hor", x);
     }
     private void UpdateRotate()
     {
